@@ -1,0 +1,75 @@
+{% load static %}
+<!DOCTYPE html>
+
+<html>
+
+  <head>
+    {% include "./head.html" %}
+  </head>
+
+  <body>
+    {% include "./navbar.html" %}
+
+      <div class = "container" style="margin-top:4%;">
+
+        <div class="row">
+          <div class="col m2 s1">
+        </div>
+
+          <div class="col m8 s10 ">
+            <img src="{% static 'api/Images/regression.jpeg' %}" class=responsive-img>
+            <div class="input-field col s12">
+
+              <form name = "formf" action ="{% url 'run' %}" method = "POST" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                <div class="row">
+                  <select name="task" id="task" required>
+                    <option disabled>Select your Task</option>
+                    <option value="1">Regression</option>
+                    <option value="2">Classification</option>
+                    <option value="3">Clustering</option>
+                  </select>
+                </div>
+
+                <div class="row">
+                  <div class="col s4 btn blue waves-effect file-field input-field" style="margin:auto;" >
+                    <input type="file" name="filename" required>Upload Dataset
+                  </div>
+
+                  <div class="col s4" >
+                    <input name="dep_var" type="number" placeholder= "Dependent Column, default = Last">
+                  </div>
+
+                  <button  class="col s4 btn blue waves-effect" type="submit" style="color:white;">Run</button>
+
+
+                </div>
+              </form>
+
+            </div>
+
+          </div>
+          <div class="col m2 s1">
+          </div>
+
+      </div>
+
+
+
+      <!--JavaScript at end of body for optimized loading-->
+
+      <!-- jquery-->
+      <script>
+        $(document).ready(function() {
+          $('select').material_select();
+           $('.sidenav-trigger').sidenav();
+
+         });
+      </script>
+
+
+
+
+    </body>
+  </html>
