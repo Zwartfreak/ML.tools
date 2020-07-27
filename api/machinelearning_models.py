@@ -31,8 +31,10 @@ def comp_classifications(df, dv):
         if df[i].nunique() > 0:
             df[i] = le.fit_transform(df[i])
 
-    y = df.iloc[:, int(dv)].values
-    x = df.iloc[:, [0, int(dv)]].values
+    y = df.iloc[:, dv]
+    x = df.iloc[:, 0:dv]
+    #y = pd.DataFrame(y)
+    print(y)
 
     '''Splitting dataset into training and testing set'''
     from sklearn.model_selection import train_test_split
@@ -54,7 +56,7 @@ def comp_classifications(df, dv):
     for key,value in models.items():
         model = value
         model.fit(x_train, y_train)
-        accuracy_list.update({key:((model.score(x_test, y_test)*100))})
+        accuracy_list.update({key: round(model.score(x_test, y_test),3)*100})
         if accuracy_list[key] > max_score:
             max_score = accuracy_list[key]
             max_models.clear() ; max_models.append(key)
